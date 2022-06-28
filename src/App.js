@@ -1,7 +1,15 @@
+import Header from './components/Header'
+
 const App = () =>
 {
     return (
-        <h1>My App</h1>
+        <>
+        <Header bgColor='red' textColor='blue' />
+        <div className='container'>
+            <h1>Feedback content goes here</h1>
+        </div>
+        </>
+        
     )
 }
 

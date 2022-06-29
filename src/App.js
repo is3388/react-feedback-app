@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from './components/Header'
 import FeedbackList from './components/FeedbackList'
 import FeedbackData from './data/FeedbackData'
+import Stats from './components/Stats'
 
 const App = () =>
 {
@@ -18,6 +19,7 @@ const App = () =>
         <>
         <Header bgColor='black' textColor='#ff6a95' />
         <div className='container'>
+            <Stats feedback={feedback} />
             <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
         </div>
         </>

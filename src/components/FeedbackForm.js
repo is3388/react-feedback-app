@@ -1,9 +1,34 @@
 import React, {useState} from 'react'
 import Card from './shared/Card'
+import Button from './shared/Button'
 
 const FeedbackForm = () => 
 {
     const [text, setText] = useState('')
+    const [message, setMessage] = useState('')
+    const [btnDisabled, setBtnDisabled] = useState(true)
+
+    // destructuring event to target and then further destructuring target to value
+    const handleTextChange = ({target: {value}}) =>
+    {
+        if(value === '')
+        {
+            setBtnDisabled(true)
+            setMessage(null)
+        }
+        else if(value.trim().length < 10)
+        {
+            setBtnDisabled(true)
+            setMessage('Text must be at least 10 characters')
+        }
+        else
+        {
+            setBtnDisabled(false)
+            setMessage(null)
+        }
+        setText(value)
+    }
+
     return (
         <Card>
             <form>
@@ -12,9 +37,10 @@ const FeedbackForm = () =>
                     <input type='text' 
                            placeholder='Write a review' 
                            value={text} 
-                           onChange= {(e) => setText(e.target.value)} />
-                    <button type='submit'>Send</button>
+                           onChange= {handleTextChange} />
+                    <Button type='submit' isDisabled={btnDisabled}>Send</Button>
                 </div>
+                {message && <div className='message'>{message}</div>}
             </form>
         </Card>
     )

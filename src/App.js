@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Header from './components/Header'
 import FeedbackList from './components/FeedbackList'
 import FeedbackData from './data/FeedbackData'
@@ -19,11 +19,13 @@ const App = () =>
     return (
         <>
         <Header bgColor='black' textColor='#ff6a95' />
+        <React.StrictMode>
         <div className='container'>
             <FeedbackForm />
             <Stats feedback={feedback} />
             <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
         </div>
+        </React.StrictMode>
         </>
         
     )

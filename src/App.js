@@ -7,6 +7,7 @@ import FeedbackForm from './components/FeedbackForm'
 import { v4 as uuidv4 } from 'uuid'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import AboutPage from './pages/AboutPage'
+import AboutIconLink from './components/AboutIconLink'
 
 const App = () =>
 {
@@ -37,9 +38,9 @@ const App = () =>
                 <Route path='/' element={<><FeedbackForm handleAdd={addFeedback} />
                                             <Stats feedback={feedback} />
                                             <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+                                            <AboutIconLink />
                                         </>} />
                 <Route path='/about' element={<AboutPage />} />
-            
             </Routes>
         </div>
         </React.StrictMode>

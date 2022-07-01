@@ -5,6 +5,8 @@ import FeedbackData from './data/FeedbackData'
 import Stats from './components/Stats'
 import FeedbackForm from './components/FeedbackForm'
 import { v4 as uuidv4 } from 'uuid'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import AboutPage from './pages/AboutPage'
 
 const App = () =>
 {
@@ -27,14 +29,21 @@ const App = () =>
     
     return (
         <>
+        <Router>
         <Header bgColor='black' textColor='#ff6a95' />
         <React.StrictMode>
         <div className='container'>
-            <FeedbackForm handleAdd={addFeedback} />
-            <Stats feedback={feedback} />
-            <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+            <Routes>
+                <Route path='/' element={<><FeedbackForm handleAdd={addFeedback} />
+                                            <Stats feedback={feedback} />
+                                            <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+                                        </>} />
+                <Route path='/about' element={<AboutPage />} />
+            
+            </Routes>
         </div>
         </React.StrictMode>
+        </Router>
         </>
         
     )

@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import AboutPage from './pages/AboutPage'
 import AboutIconLink from './components/AboutIconLink'
+import { FeedbackProvider } from './context/FeedbackContext'
 
 const App = () =>
 {
@@ -29,15 +30,15 @@ const App = () =>
 
     
     return (
-        <>
+        <FeedbackProvider>
         <Router>
         <Header bgColor='black' textColor='#ff6a95' />
         <React.StrictMode>
         <div className='container'>
             <Routes>
                 <Route path='/' element={<><FeedbackForm handleAdd={addFeedback} />
-                                            <Stats feedback={feedback} />
-                                            <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+                                            <Stats />
+                                            <FeedbackList handleDelete={deleteFeedback} />
                                             <AboutIconLink />
                                         </>} />
                 <Route path='/about' element={<AboutPage />} />
@@ -45,7 +46,7 @@ const App = () =>
         </div>
         </React.StrictMode>
         </Router>
-        </>
+        </FeedbackProvider>
         
     )
 }

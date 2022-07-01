@@ -1,9 +1,13 @@
 import FeedbackItem from "./FeedbackItem"
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useContext } from 'react'
+import FeedbackContext from '../context/FeedbackContext'
 
-const FeedbackList = ({feedback, handleDelete}) => {
-    console.log(feedback)
+const FeedbackList = ({handleDelete}) => {
+    // no longer use props to pass into component
+    // use the global context and that particular state of the particular context
+    const {feedback} = useContext(FeedbackContext)
 
     if(!feedback || feedback.length === 0)
     {
@@ -28,12 +32,12 @@ const FeedbackList = ({feedback, handleDelete}) => {
     )
 }
 
-FeedbackList.propTypes = { feedback: PropTypes.arrayOf (
+/* FeedbackList.propTypes = { feedback: PropTypes.arrayOf (
     PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         text: PropTypes.string.isRequired,
         rating: PropTypes.number.isRequired
     })
 ) 
-}
+}*/
 export default FeedbackList

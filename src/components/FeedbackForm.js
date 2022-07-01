@@ -1,14 +1,17 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import Card from './shared/Card'
 import Button from './shared/Button'
 import RatingSelect from './RatingSelect'
+import FeedbackContext from '../context/FeedbackContext'
 
-const FeedbackForm = ({handleAdd}) => 
+const FeedbackForm = () => 
 {
     const [text, setText] = useState('')
     const [message, setMessage] = useState('')
     const [rating, setRating] = useState(10)
     const [btnDisabled, setBtnDisabled] = useState(true)
+
+    const {addFeedback} = useContext(FeedbackContext)
 
     // destructuring event to target and then further destructuring target to value
     const handleTextChange = ({target: {value}}) =>
@@ -39,7 +42,7 @@ const FeedbackForm = ({handleAdd}) =>
                 text,
                 rating
             }
-            handleAdd(newFeedback)
+            addFeedback(newFeedback)
             setText('')
         }
         

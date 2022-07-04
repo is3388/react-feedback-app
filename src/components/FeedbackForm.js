@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import Card from './shared/Card'
 import Button from './shared/Button'
 import RatingSelect from './RatingSelect'
@@ -11,7 +11,18 @@ const FeedbackForm = () =>
     const [rating, setRating] = useState(10)
     const [btnDisabled, setBtnDisabled] = useState(true)
 
-    const {addFeedback} = useContext(FeedbackContext)
+    const {addFeedback, feedbackEdit} = useContext(FeedbackContext) // bring in the other state to populate the text, rating and id on the form
+
+    // use useEffect to re-render the form when the state of feedbackEdit changes
+    useEffect(() =>
+    {
+        if ( feedbackEdit.edit === true )
+        {
+            setBtnDisabled(false)
+            setText(feedbackEdit.item.text)
+            setRating(feedbackEdit.item.rating)
+        }
+    }, [feedbackEdit])
 
     // destructuring event to target and then further destructuring target to value
     const handleTextChange = ({target: {value}}) =>

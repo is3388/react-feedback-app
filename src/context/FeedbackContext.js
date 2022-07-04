@@ -12,6 +12,12 @@ export const FeedbackProvider = ({ children }) =>
         {id: 2, text: 'This is feedback item 2', rating: 8},
         {id: 3, text: 'This is feedback item 3', rating: 7}
     ])
+    // another state to track which item is clicked for edit
+    const [feedbackEdit, setFeedbackEdit] = useState({
+        item: {}, // text and rating
+        edit: false
+    })
+
     // value is what state we want to pass into components needed and shorthand for feedback:feedback 
     
     const deleteFeedback = async (id) =>
@@ -28,8 +34,16 @@ export const FeedbackProvider = ({ children }) =>
         setFeedback([newFeedback, ...feedback])
         //setFeedback((prev) => prev.concat(newFeedback))
     }
+
+// when the feedback item is selected for edit, set the text, rating and id to prepopulate the form
+    const editFeedback = (item) => {
+        setFeedbackEdit({
+            item,
+            edit: true
+        })
+    }
     
-    return (<FeedbackContext.Provider value={{feedback, deleteFeedback, addFeedback}}>
+    return (<FeedbackContext.Provider value={{feedback, feedbackEdit, deleteFeedback, addFeedback, editFeedback}}>
             {children}
         </FeedbackContext.Provider>)
 }

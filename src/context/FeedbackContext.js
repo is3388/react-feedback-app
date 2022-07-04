@@ -42,8 +42,18 @@ export const FeedbackProvider = ({ children }) =>
             edit: true
         })
     }
+
+// update feedback item on the form
+    const updateFeedback = async (id, updatedItem) => {
+        //setFeedback(feedback.map((item) => (item.id === id ?{...item, ...updatedItem} : item)))
+        setFeedback(feedback.map((item) => (item.id === id ?{...updatedItem, id} : item)))
+        setFeedbackEdit({
+            item: {},
+            edit: false,
+          })
+    }
     
-    return (<FeedbackContext.Provider value={{feedback, feedbackEdit, deleteFeedback, addFeedback, editFeedback}}>
+    return (<FeedbackContext.Provider value={{feedback, feedbackEdit, deleteFeedback, addFeedback, editFeedback, updateFeedback}}>
             {children}
         </FeedbackContext.Provider>)
 }

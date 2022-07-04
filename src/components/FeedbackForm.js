@@ -11,7 +11,7 @@ const FeedbackForm = () =>
     const [rating, setRating] = useState(10)
     const [btnDisabled, setBtnDisabled] = useState(true)
 
-    const {addFeedback, feedbackEdit} = useContext(FeedbackContext) // bring in the other state to populate the text, rating and id on the form
+    const {addFeedback, feedbackEdit, updateFeedback} = useContext(FeedbackContext) // bring in the other state to populate the text, rating and id on the form
 
     // use useEffect to re-render the form when the state of feedbackEdit changes
     useEffect(() =>
@@ -53,7 +53,18 @@ const FeedbackForm = () =>
                 text,
                 rating
             }
+
+            if (feedbackEdit.item.edit === true)
+            {
+                updateFeedback(feedbackEdit.item.id, newFeedback)
+            }
+            else
+            {
             addFeedback(newFeedback)
+            }
+            // reset everything to default
+            setBtnDisabled(true)
+            setRating(10)
             setText('')
         }
         

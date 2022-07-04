@@ -4,14 +4,15 @@ import FeedbackContext from '../context/FeedbackContext'
 const RatingSelect = ({select}) => {
     const [selected, setSelected] = useState(10) // the state which rating is selected
     
-    const {feedbackEdit} = useContext(FeedbackContext)
+   const {feedbackEdit} = useContext(FeedbackContext)
 
-    useEffect(() => {
-        setSelected(feedbackEdit.item.rating)
+   useEffect(() => {
+        select(feedbackEdit.item.rating)
 
     }, [feedbackEdit])
+
     const handleChange = (e) => {
-        setSelected(+e.currentTarget.value) // currentTarget.value refers to what value selected (li stener attached to)and returns a string
+       setSelected(+e.currentTarget.value) // currentTarget.value refers to what value selected (li stener attached to)and returns a string
         select(+e.currentTarget.value) //select is a function and pass in whatever value is selected. back up to set rating in form
     }
 

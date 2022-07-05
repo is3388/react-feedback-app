@@ -28,7 +28,7 @@ export const FeedbackProvider = ({ children }) =>
         }
     }
 
-    const addFeedback = (newFeedback) =>
+    const addFeedback = async (newFeedback) =>
     {
         newFeedback.id = uuidv4()
         setFeedback([newFeedback, ...feedback])

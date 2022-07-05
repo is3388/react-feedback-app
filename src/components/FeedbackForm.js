@@ -25,6 +25,7 @@ const FeedbackForm = () =>
     }, [feedbackEdit])
 
     // destructuring event to target and then further destructuring target to value
+    // checking input value not state as state won't be the updated value until the next render of the component
     const handleTextChange = ({target: {value}}) =>
     {
         if(value === '')
@@ -69,12 +70,12 @@ const FeedbackForm = () =>
         }
         
     }
-
+    // pass selected to RatingSelect so we don't need local duplicate state
     return (
         <Card>
             <form onSubmit={handleSubmit}>
                 <h2>How would you rate our service?</h2>
-                <RatingSelect select={(rating) => setRating(rating)} />
+                <RatingSelect select={setRating} selected={rating} />
                 <div className='input-group'>
                     <input type='text' 
                            placeholder='Write a review' 

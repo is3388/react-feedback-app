@@ -20,10 +20,11 @@ const App = () =>
                     <Route path='/' element={<><FeedbackForm />
                                             <Stats />
                                             <FeedbackList />
-                                            <AboutIconLink />
+                                            
                                         </>} />
                     <Route path='/about' element={<AboutPage />} />
                 </Routes>
+                <AboutIconLink />
             </div>
             </React.StrictMode>
         </Router>

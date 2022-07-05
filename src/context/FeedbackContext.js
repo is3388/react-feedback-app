@@ -23,6 +23,7 @@ export const FeedbackProvider = ({ children }) =>
         const response = await fetch(`http://localhost:5000/feedback?_sort=id&_order=desc`)
         const data = await response.json()
         setFeedback(data)
+        setIsLoading(false)
     }
 
     // value is what state we want to pass into components needed and shorthand for feedback:feedback 

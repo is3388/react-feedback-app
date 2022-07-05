@@ -3,18 +3,19 @@ import FeedbackItem from "./FeedbackItem"
 import { motion, AnimatePresence } from 'framer-motion'
 import { useContext } from 'react'
 import FeedbackContext from '../context/FeedbackContext'
+import Spinner from './shared/Spinner'
 
 const FeedbackList = () => {
     // no longer use props to pass into component
     // use the global context and that particular state of the particular context
-    const {feedback} = useContext(FeedbackContext)
+    const {feedback, isLoading} = useContext(FeedbackContext)
 
-    if(!feedback || feedback.length === 0)
+    if(!isLoading && (!feedback || feedback.length === 0))
     {
         return <p>No feedback yet</p>
     }
 
-    return (
+    return isLoading ? (<Spinner />) : (
         <div className='feedback-list'>
             <AnimatePresence>
             {feedback.map((item) =>

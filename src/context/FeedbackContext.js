@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 const FeedbackContext = createContext()
@@ -7,16 +7,23 @@ const FeedbackContext = createContext()
 export const FeedbackProvider = ({ children }) =>
 {
     // use useState instead of reducer
-    const [feedback, setFeedback] = useState([
-        {id: 1, text: 'This is feedback item 1', rating: 10},
-        {id: 2, text: 'This is feedback item 2', rating: 8},
-        {id: 3, text: 'This is feedback item 3', rating: 7}
-    ])
+    const [feedback, setFeedback] = useState([]) // delete hard coded array of feedback
     // another state to track which item is clicked for edit
     const [feedbackEdit, setFeedbackEdit] = useState({
         item: {}, // text and rating
         edit: false
     })
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        fetchFeedback()
+    }, [])
+
+    const fetchFeedback = async () => {
+        const response = await fetch(`http://localhost:5000/feedback?_sort=id&_order=desc`)
+        const data = await response.json()
+        setFeedback(data)
+    }
 
     // value is what state we want to pass into components needed and shorthand for feedback:feedback 
     
@@ -25,6 +32,7 @@ export const FeedbackProvider = ({ children }) =>
         if (window.confirm('are you sure you want to delete?'))
         {
             setFeedback(feedback.filter((item) => item.id !== id))
+            setIsLoading(false)
         }
     }
 
@@ -53,7 +61,7 @@ export const FeedbackProvider = ({ children }) =>
           })
     }
     
-    return (<FeedbackContext.Provider value={{feedback, feedbackEdit, deleteFeedback, addFeedback, editFeedback, updateFeedback}}>
+    return (<FeedbackContext.Provider value={{feedback, feedbackEdit, deleteFeedback, addFeedback, editFeedback, updateFeedback, isLoading}}>
             {children}
         </FeedbackContext.Provider>)
 }

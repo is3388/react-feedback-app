@@ -54,7 +54,7 @@ const FeedbackForm = () =>
                 rating
             }
 
-            if (feedbackEdit.item.edit === true)
+            if (feedbackEdit.edit === true)
             {
                 updateFeedback(feedbackEdit.item.id, newFeedback)
             }

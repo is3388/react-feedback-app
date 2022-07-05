@@ -32,6 +32,9 @@ export const FeedbackProvider = ({ children }) =>
     {
         if (window.confirm('are you sure you want to delete?'))
         {
+            await fetch(`/feedback/${id}`, {
+                method: 'DELETE'
+            })
             setFeedback(feedback.filter((item) => item.id !== id))
             setIsLoading(false)
         }
@@ -62,8 +65,16 @@ export const FeedbackProvider = ({ children }) =>
 
 // update feedback item on the form
     const updateFeedback = async (id, updatedItem) => {
+        const response = await fetch(`/feedback/${id}`, {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedItem)
+        })
+        const data = await response.json()
         //setFeedback(feedback.map((item) => (item.id === id ?{...item, ...updatedItem} : item)))
-        setFeedback(feedback.map((item) => (item.id === id ?{...updatedItem, id} : item)))
+        setFeedback(feedback.map((item) => (item.id === id ? data : item)))
         setFeedbackEdit({
             item: {},
             edit: false,
